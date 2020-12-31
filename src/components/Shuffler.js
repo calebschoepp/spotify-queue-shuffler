@@ -181,6 +181,7 @@ function Shuffler(props) {
     );
   }
 
+  // TODO https://www.davidhu.io/react-spinners/
   return (
     <div>
       <LoadingIcon isLoading={isLoading} />

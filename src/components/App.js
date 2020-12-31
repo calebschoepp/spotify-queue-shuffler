@@ -9,7 +9,9 @@ import Help from "./Help";
 
 function App() {
   // State
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken, setAccessToken] = useState(
+    "BQBcpNr9sF85xIsZjSXnE3TEAlck41BkoknfhaRwyaLoivEH3V9HQsohZd611KG_6Y3STIIJo4o8BQpNoHxEOjXA1XtDyzDf5ihBza9aMkWKErxPhP63UVxqcYH2ClFuIYDA3epxTM0sDOXq1gnJ4c2Qywpo39g"
+  );
 
   // TODO use cookie to check if it is the first time
   return (
