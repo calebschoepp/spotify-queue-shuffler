@@ -8,12 +8,13 @@ import { parseHash, parseSearch, randNonce } from "../util/helper";
 const hasAuthedBeforeCookie = "has-authed-before";
 const oauthStateCookie = "oauth-state";
 
+const randomState = randNonce(20);
+
 function Shuffler() {
   // State
   const [isLoading, setIsLoading] = useState(false);
-  const [loadingText, setLoadingText] = useState("This is some loading text!"); // TODO better default
+  const [loadingText, setLoadingText] = useState(""); // TODO better default
   const [accessToken, setAccessToken] = useState("");
-  const [randomState] = useState(randNonce(20));
   const [cookies, setCookie] = useCookies([
     hasAuthedBeforeCookie,
     oauthStateCookie,
@@ -57,7 +58,9 @@ function Shuffler() {
   const handleShuffleQueue = async () => {
     // TODO force loading icon to update
     setIsLoading(true);
+    setLoadingText("Shuffling queue. You may hear something.");
     await algorithm(accessToken);
+    setLoadingText("");
     setIsLoading(false);
   };
 
@@ -95,3 +98,6 @@ function Shuffler() {
 }
 
 export default Shuffler;
+
+// TODO it is weird to show "Shuffle Queue" after the first log in and then make them click it twice to actually shuffle
+// TODO https://developer.okta.com/blog/2019/05/01/is-the-oauth-implicit-flow-deads maybe find an alternative auth flow?
