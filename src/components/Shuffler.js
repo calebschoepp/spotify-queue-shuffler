@@ -1,15 +1,24 @@
 import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import LoadingIcon from "./LoadingIcon";
 import LoadingText from "./LoadingText";
 import algorithm from "../util/algorithm";
 
+const hasAuthedBeforeCookie = "has-authed-before";
+const oauthStateCookie = "oauth-state";
+
 function Shuffler(props) {
-  // Props
-  let { hasAuthenticatedBefore, accessToken } = props;
+  // Props - TODO remove this
+  let { accessToken } = props;
 
   // State
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("This is some loading text!");
+  const [TODOTOKEN, setAccessToken] = useState("");
+  const [cookies, setCookie, removeCookie] = useCookies([
+    hasAuthedBeforeCookie,
+    oauthStateCookie,
+  ]);
 
   // Spotify authorization constants
   const authEndpoint = "https://accounts.spotify.com/authorize";
@@ -32,7 +41,7 @@ function Shuffler(props) {
   };
 
   // Build primary button
-  const buttonText = hasAuthenticatedBefore
+  const buttonText = cookies[hasAuthedBeforeCookie]
     ? "Shuffle Queue"
     : "Login With Spotify";
   const css = "bg-green-500 text-white text-xl rounded-full px-4 py-1";

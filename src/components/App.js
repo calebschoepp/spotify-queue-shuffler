@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
       <h1 className="text-2xl">Spotify Queue Shuffler</h1>
-      <Shuffler hasAuthenticatedBefore={true} accessToken={accessToken} />
+      <Shuffler accessToken={accessToken} />
       <BuyMeACoffee />
       <Help />
     </div>
