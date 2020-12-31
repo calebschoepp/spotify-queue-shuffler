@@ -9,13 +9,13 @@ import Help from "./Help";
 
 function App() {
   // State
-  const [accessToken, setAccessToken] = useState(null);
+  const [accessToken, setAccessToken] = useState("");
 
   // TODO use cookie to check if it is the first time
   return (
     <div>
       <h1 className="text-2xl">Spotify Queue Shuffler</h1>
-      <Shuffler hasAuthenticatedBefore={false} accessToken={accessToken} />
+      <Shuffler hasAuthenticatedBefore={true} accessToken={accessToken} />
       <BuyMeACoffee />
       <Help />
     </div>
