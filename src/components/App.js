@@ -10,7 +10,7 @@ import Help from "./Help";
 function App() {
   // State
   const [accessToken, setAccessToken] = useState(
-    "BQBcpNr9sF85xIsZjSXnE3TEAlck41BkoknfhaRwyaLoivEH3V9HQsohZd611KG_6Y3STIIJo4o8BQpNoHxEOjXA1XtDyzDf5ihBza9aMkWKErxPhP63UVxqcYH2ClFuIYDA3epxTM0sDOXq1gnJ4c2Qywpo39g"
+    "BQB1DSAl0i7OVK_06dca7j2CuzT1mfTDx-zjXLE9Sj6f8GTNHKZGryfh0vi8EVDiK4RQ7xEa8wU8led4VKt4deNRlldJvqPwKh3J_g11fJz_CNf0NlxdeMpzaLH2ID54HU-b6zAwtG6jDsMvSvnH9KAPqjzUiKM"
   );
 
   // TODO use cookie to check if it is the first time
