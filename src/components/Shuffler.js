@@ -1,38 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import LoadingIcon from "./LoadingIcon";
 import LoadingText from "./LoadingText";
-import algorithm from "../util/algorithm";
+import { algorithm } from "../util/algorithm";
+import { parseHash, parseSearch, randNonce } from "../util/helper";
 
 const hasAuthedBeforeCookie = "has-authed-before";
 const oauthStateCookie = "oauth-state";
 
-function Shuffler(props) {
-  // Props - TODO remove this
-  let { accessToken } = props;
-
+function Shuffler() {
   // State
   const [isLoading, setIsLoading] = useState(false);
-  const [loadingText, setLoadingText] = useState("This is some loading text!");
-  const [TODOTOKEN, setAccessToken] = useState("");
-  const [cookies, setCookie, removeCookie] = useCookies([
+  const [loadingText, setLoadingText] = useState("This is some loading text!"); // TODO better default
+  const [accessToken, setAccessToken] = useState("");
+  const [randomState] = useState(randNonce(20));
+  const [cookies, setCookie] = useCookies([
     hasAuthedBeforeCookie,
     oauthStateCookie,
   ]);
+
+  // Run once when app loads
+  useEffect(() => {
+    // Set state cookie
+    // TODO set domain
+    setCookie(oauthStateCookie, randomState, { path: "/", maxAge: 7200 });
+
+    // Handle a successful authentication
+    // TODO should I remove hash fragment so I don't get weird bugs when user reloads page and would use same token again?
+    let isValid, state, token, error;
+    [isValid, state, token] = parseHash(window.location.hash);
+    if (isValid && cookies[oauthStateCookie] === state) {
+      setAccessToken(token);
+      setCookie(hasAuthedBeforeCookie, "true");
+      return;
+    }
+
+    // Handle a failed authentication
+    [isValid, state, error] = parseSearch(window.location.search);
+    if (isValid && cookies[oauthStateCookie] === state) {
+      // TODO do something about the authentication error
+      console.log("FAILURE TO AUTH.");
+    }
+  }, []);
 
   // Spotify authorization constants
   const authEndpoint = "https://accounts.spotify.com/authorize";
   const clientId = "8a69875eeccc494fbed3d7b97fbc5c34"; // TODO get this from configuration
   const responseType = "token";
   const redirectUri = "http://localhost:3000"; // TODO get this from configuration to support prod
-  const state = "123"; // TODO generate randomly and use cookies
   const scopes = [
     "user-read-currently-playing",
     "user-read-playback-state",
     "user-modify-playback-state",
     "streaming",
   ];
-
   const handleShuffleQueue = async () => {
     // TODO force loading icon to update
     setIsLoading(true);
@@ -47,7 +68,7 @@ function Shuffler(props) {
   const css = "bg-green-500 text-white text-xl rounded-full px-4 py-1";
   let button = null;
   if (accessToken === "") {
-    let loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scopes.join(
+    let loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&state=${randomState}&scope=${scopes.join(
       "%20"
     )}&response_type=${responseType}`;
     button = (

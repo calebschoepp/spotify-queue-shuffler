@@ -2,12 +2,12 @@ import SpotifyWebApi from "spotify-web-api-js";
 
 let sentinelTrackUri = "spotify:track:4uLU6hMCjMI75M1A2tKUQC";
 
-export const shuffleArray = (array) => {
+function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
-};
+}
 
 async function algorithm(accessToken) {
   // TODO make sure all error handling leaves everything in a stable state
@@ -134,4 +134,4 @@ async function algorithm(accessToken) {
   }
 }
 
-export default algorithm;
+export { algorithm, shuffleArray };
