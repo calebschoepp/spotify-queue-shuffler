@@ -23,7 +23,7 @@ function Shuffler() {
   // Run once when app loads
   useEffect(() => {
     // Set state cookie
-    // TODO set domain
+    // TODO set domain for security reasons
     setCookie(oauthStateCookie, randomState, { path: "/", maxAge: 7200 });
 
     // Handle a successful authentication
@@ -44,17 +44,6 @@ function Shuffler() {
     }
   }, []);
 
-  // Spotify authorization constants
-  const authEndpoint = "https://accounts.spotify.com/authorize";
-  const clientId = "8a69875eeccc494fbed3d7b97fbc5c34"; // TODO get this from configuration
-  const responseType = "token";
-  const redirectUri = "http://localhost:3000"; // TODO get this from configuration to support prod
-  const scopes = [
-    "user-read-currently-playing",
-    "user-read-playback-state",
-    "user-modify-playback-state",
-    "streaming",
-  ];
   const handleShuffleQueue = async () => {
     // TODO force loading icon to update
     setIsLoading(true);
@@ -64,6 +53,7 @@ function Shuffler() {
     setIsLoading(false);
   };
 
+  // TODO use correct URL for prod
   // Build primary button
   const buttonText = cookies[hasAuthedBeforeCookie]
     ? "Shuffle Queue"
@@ -71,9 +61,17 @@ function Shuffler() {
   const css = "bg-green-500 text-white text-xl rounded-full px-4 py-1";
   let button = null;
   if (accessToken === "") {
-    let loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&state=${randomState}&scope=${scopes.join(
-      "%20"
-    )}&response_type=${responseType}`;
+    let loginUrl =
+      process.env.REACT_APP_AUTH_ENDPOINT +
+      "?client_id=" +
+      process.env.REACT_APP_CLIENT_ID +
+      "&redirect_uri=" +
+      process.env.REACT_APP_REDIRECT_URI +
+      "&state=" +
+      randomState +
+      "&scope=" +
+      process.env.REACT_APP_SCOPES +
+      "&response_type=token";
     button = (
       <a className={css} href={loginUrl}>
         {buttonText}
