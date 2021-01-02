@@ -6,6 +6,7 @@ import { algorithm } from "../util/algorithm";
 import { parseHash, parseSearch, randNonce } from "../util/helper";
 
 const oauthStateCookie = "oauth-state";
+const shuffledMsgTimeout = 5000; // ms
 
 const randomState = randNonce(20);
 
@@ -60,7 +61,10 @@ function Shuffler() {
       "Shuffling queue. You will hear songs being skipped as it works."
     );
     await algorithm(accessToken);
-    setLoadingText("");
+    setLoadingText("Shuffled 11 songs in your queue.");
+    setTimeout(() => {
+      setLoadingText("");
+    }, shuffledMsgTimeout);
     setIsLoading(false);
   };
 
