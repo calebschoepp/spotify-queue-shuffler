@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Shuffler from "./Shuffler";
 import BuyMeACoffee from "./BuyMeACoffee";
 import Help from "./Help";
@@ -9,8 +9,8 @@ import Help from "./Help";
 
 function App() {
   return (
-    <div>
-      <h1 className="text-2xl">Spotify Queue Shuffler</h1>
+    <div className="absolute bottom-0 top-0 left-0 right-0">
+      <h1 className="absolute top-0 p-2 text-2xl">Spotify Queue Shuffler</h1>
       <Shuffler />
       <BuyMeACoffee />
       <Help />

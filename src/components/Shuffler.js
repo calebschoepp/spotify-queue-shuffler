@@ -5,7 +5,6 @@ import LoadingText from "./LoadingText";
 import { algorithm } from "../util/algorithm";
 import { parseHash, parseSearch, randNonce } from "../util/helper";
 
-const hasAuthedBeforeCookie = "has-authed-before";
 const oauthStateCookie = "oauth-state";
 
 const randomState = randNonce(20);
@@ -15,12 +14,10 @@ function Shuffler() {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState(""); // TODO better default
   const [accessToken, setAccessToken] = useState("");
-  const [cookies, setCookie] = useCookies([
-    hasAuthedBeforeCookie,
-    oauthStateCookie,
-  ]);
+  const [cookies, setCookie] = useCookies([oauthStateCookie]);
 
   // Run once when app loads
+  // TODO handle unmatching state seperately
   useEffect(() => {
     // Set state cookie
     // TODO set domain for security reasons
@@ -32,7 +29,6 @@ function Shuffler() {
     [isValid, state, token] = parseHash(window.location.hash);
     if (isValid && cookies[oauthStateCookie] === state) {
       setAccessToken(token);
-      setCookie(hasAuthedBeforeCookie, "true");
       return;
     }
 
@@ -55,12 +51,10 @@ function Shuffler() {
 
   // TODO use correct URL for prod
   // Build primary button
-  const buttonText = cookies[hasAuthedBeforeCookie]
-    ? "Shuffle Queue"
-    : "Login With Spotify";
+  const buttonText = accessToken ? "Shuffle Queue" : "Login With Spotify";
   const css = "bg-green-500 text-white text-xl rounded-full px-4 py-1";
   let button = null;
-  if (accessToken === "") {
+  if (!accessToken) {
     let loginUrl =
       process.env.REACT_APP_AUTH_ENDPOINT +
       "?client_id=" +
@@ -87,15 +81,20 @@ function Shuffler() {
 
   // TODO https://www.davidhu.io/react-spinners/
   return (
-    <div>
-      <LoadingIcon isLoading={isLoading} />
-      <LoadingText text={loadingText} />
-      {button}
+    <div className="h-full flex flex-col justify-center items-center">
+      <div className="spacer h-1/6 w-full p-1" />
+      <div className="h-1/3 w-full p-1">
+        <LoadingIcon isLoading={isLoading} />
+      </div>
+      <div className="h-1/6 w-full p-1">
+        <LoadingText text={loadingText} />
+      </div>
+      <div className="flex flex-col justify-top items-center h-1/4 w-full p-1">
+        {button}
+      </div>
+      <div className="spacer h-1/6 w-full p-1" />
     </div>
   );
 }
 
 export default Shuffler;
-
-// TODO it is weird to show "Shuffle Queue" after the first log in and then make them click it twice to actually shuffle
-// TODO https://developer.okta.com/blog/2019/05/01/is-the-oauth-implicit-flow-deads maybe find an alternative auth flow?
