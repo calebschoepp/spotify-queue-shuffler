@@ -16,34 +16,49 @@ function Shuffler() {
   const [accessToken, setAccessToken] = useState("");
   const [cookies, setCookie] = useCookies([oauthStateCookie]);
 
-  // Run once when app loads
-  // TODO handle unmatching state seperately
+  // Set state cookie
   useEffect(() => {
-    // Set state cookie
     // TODO set domain for security reasons
     setCookie(oauthStateCookie, randomState, { path: "/", maxAge: 7200 });
+  }, [setCookie]);
 
+  // Run once when app loads
+  useEffect(() => {
     // Handle a successful authentication
-    // TODO should I remove hash fragment so I don't get weird bugs when user reloads page and would use same token again?
     let isValid, state, token, error;
     [isValid, state, token] = parseHash(window.location.hash);
     if (isValid && cookies[oauthStateCookie] === state) {
       setAccessToken(token);
+      setLoadingText("");
+      window.history.pushState("", document.title, window.location.pathname);
+      return;
+    } else if (isValid && cookies[oauthStateCookie] !== state) {
+      // State mismatch, possible security issue, show error
+      setLoadingText("Something went wrong.");
+      setAccessToken("");
+      window.history.pushState("", document.title, window.location.pathname);
       return;
     }
 
     // Handle a failed authentication
     [isValid, state, error] = parseSearch(window.location.search);
     if (isValid && cookies[oauthStateCookie] === state) {
-      // TODO do something about the authentication error
-      console.log("FAILURE TO AUTH.");
+      setLoadingText(error);
+      window.history.pushState("", document.title, window.location.pathname);
+    } else if (isValid && cookies[oauthStateCookie] !== state) {
+      // State mismatch, possible security issue, show error
+      setLoadingText("Something went wrong.");
+      setAccessToken("");
+      window.history.pushState("", document.title, window.location.pathname);
     }
-  }, []);
+  }, [cookies]);
 
   const handleShuffleQueue = async () => {
     // TODO force loading icon to update
     setIsLoading(true);
-    setLoadingText("Shuffling queue. You may hear something.");
+    setLoadingText(
+      "Shuffling queue. You will hear songs being skipped as it works."
+    );
     await algorithm(accessToken);
     setLoadingText("");
     setIsLoading(false);
@@ -52,7 +67,8 @@ function Shuffler() {
   // TODO use correct URL for prod
   // Build primary button
   const buttonText = accessToken ? "Shuffle Queue" : "Login With Spotify";
-  const css = "bg-green-500 text-white text-xl rounded-full px-4 py-1";
+  const css =
+    "bg-green-500 text-white text-xl rounded-full px-4 py-1 select-none focus:outline-none";
   let button = null;
   if (!accessToken) {
     let loginUrl =
@@ -83,10 +99,10 @@ function Shuffler() {
   return (
     <div className="h-full flex flex-col justify-center items-center">
       <div className="spacer h-1/6 w-full p-1" />
-      <div className="h-1/3 w-full p-1">
+      <div className="h-1/3 w-full p-1 flex flex-col justify-center items-center">
         <LoadingIcon isLoading={isLoading} />
       </div>
-      <div className="h-1/6 w-full p-1">
+      <div className="h-1/6 w-full p-1 flex flex-col justify-center items-center">
         <LoadingText text={loadingText} />
       </div>
       <div className="flex flex-col justify-top items-center h-1/4 w-full p-1">
