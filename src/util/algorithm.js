@@ -1,5 +1,7 @@
 import SpotifyWebApi from "spotify-web-api-js";
 
+// TODO https://ckeditor.com/blog/Aborting-a-signal-how-to-cancel-an-asynchronous-task-in-JavaScript/
+
 const sentinelTrackUri = "spotify:track:4uLU6hMCjMI75M1A2tKUQC";
 const sameSongTimeout = 500; // ms
 
@@ -34,6 +36,7 @@ async function algorithm(accessToken) {
     console.log(error);
     return;
   }
+  // TODO handle case where nothing is playing
   currentSongUri = playerState.item.uri;
   currentSongPosition = playerState.progress_ms;
   currentSongIsPaused = playerState.is_playing;
