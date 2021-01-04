@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import LoadingIcon from "./LoadingIcon";
 import LoadingText from "./LoadingText";
-import { algorithm } from "../util/algorithm";
+import { algorithm, outcomes } from "../util/algorithm";
 import { parseHash, parseSearch, randNonce } from "../util/helper";
 import CancellationToken from "../util/CancellationToken";
 
 const oauthStateCookie = "oauth-state";
-const shuffledMsgTimeout = 5000; // ms
 
 const randomState = randNonce(20);
 
@@ -60,14 +59,38 @@ function Shuffler() {
   const handleShuffleQueue = async () => {
     // TODO force loading icon to update
     setIsLoading(true);
-    setLoadingText(
-      "Shuffling queue. You will hear songs being skipped as it works."
-    );
-    await algorithm(accessToken, cancelToken);
-    setLoadingText("Shuffled 11 songs in your queue.");
-    setTimeout(() => {
-      setLoadingText("");
-    }, shuffledMsgTimeout);
+    setLoadingText("Shuffling queue. You may hear noises as it works.");
+    let { outcome, count } = await algorithm(accessToken, cancelToken);
+    switch (outcome) {
+      case outcomes.UNAUTHENTICATED: {
+        setAccessToken("");
+        setLoadingText("Please login again.");
+        break;
+      }
+      case outcomes.ERROR: {
+        setLoadingText(
+          "Something went wrong on Spotify's end. Please try again."
+        );
+        break;
+      }
+      case outcomes.SUCCESS: {
+        if (count === 0) {
+          setLoadingText(`No songs in your queue to shuffle.`);
+        } else {
+          setLoadingText(`Shuffled ${count} songs in your queue.`);
+        }
+        break;
+      }
+      case outcomes.NOTHING_PLAYING: {
+        setLoadingText(
+          "Nothing is playing right now. Start by opening Spotify and playing a song."
+        );
+        break;
+      }
+      default: {
+        setLoadingText("Something went wrong. Please reload the page.");
+      }
+    }
     setIsLoading(false);
     cancelToken.reset();
   };
