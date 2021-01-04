@@ -1,7 +1,7 @@
 import React from "react";
 
 function Help(props) {
-  return <p className="absolute bottom-0 left-0 p-2">Help</p>;
+  return <img src="/Help.png" className="absolute bottom-0 left-0 p-4" />;
 }
 
 export default Help;

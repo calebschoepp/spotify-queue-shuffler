@@ -1,7 +1,14 @@
 import React from "react";
 
 function BuyMeACoffee(props) {
-  return <p className="absolute bottom-0 right-0 p-2">Buy Me A Coffee</p>;
+  return (
+    <a
+      className="absolute bottom-0 right-0 p-4"
+      href="https://www.buymeacoffee.com/calebschoepp"
+    >
+      <img src="/BuyMeACoffee.png" />
+    </a>
+  );
 }
 
 export default BuyMeACoffee;
