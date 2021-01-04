@@ -1,5 +1,3 @@
-import SpotifyWebApi from "spotify-web-api-js";
-
 const sentinelTrackUri = "spotify:track:4uLU6hMCjMI75M1A2tKUQC";
 const sameSongTimeout = 500; // ms
 const outcomes = {
@@ -34,7 +32,7 @@ function handleFatalError(error) {
   return { outcome: outcomes.ERROR, count: null };
 }
 
-async function algorithm(accessToken, cancelToken) {
+async function algorithm(client, accessToken, cancelToken) {
   // Returns [outcome, count]
   // TODO make sure all error handling leaves everything in a stable state
   if (accessToken === "") {
@@ -43,7 +41,6 @@ async function algorithm(accessToken, cancelToken) {
   }
 
   // Setup Spotify client
-  let client = new SpotifyWebApi();
   client.setAccessToken(accessToken);
 
   // Get current song and seek position

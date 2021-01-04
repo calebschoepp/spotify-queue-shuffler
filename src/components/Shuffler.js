@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
-import LoadingIcon from "./LoadingIcon";
-import LoadingText from "./LoadingText";
 import { algorithm, outcomes } from "../util/algorithm";
 import { parseHash, parseSearch, randNonce } from "../util/helper";
+import { useCookies } from "react-cookie";
 import CancellationToken from "../util/CancellationToken";
+import LoadingIcon from "./LoadingIcon";
+import LoadingText from "./LoadingText";
+import React, { useEffect, useState } from "react";
+import SpotifyWebApi from "spotify-web-api-js";
 
 const oauthStateCookie = "oauth-state";
 
@@ -60,7 +61,11 @@ function Shuffler() {
     // TODO force loading icon to update
     setIsLoading(true);
     setLoadingText("Shuffling queue. You may hear noises as it works.");
-    let { outcome, count } = await algorithm(accessToken, cancelToken);
+    let { outcome, count } = await algorithm(
+      new SpotifyWebApi(),
+      accessToken,
+      cancelToken
+    );
     switch (outcome) {
       case outcomes.UNAUTHENTICATED: {
         setAccessToken("");
