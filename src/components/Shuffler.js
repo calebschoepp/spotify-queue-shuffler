@@ -4,11 +4,14 @@ import LoadingIcon from "./LoadingIcon";
 import LoadingText from "./LoadingText";
 import { algorithm } from "../util/algorithm";
 import { parseHash, parseSearch, randNonce } from "../util/helper";
+import CancellationToken from "../util/CancellationToken";
 
 const oauthStateCookie = "oauth-state";
 const shuffledMsgTimeout = 5000; // ms
 
 const randomState = randNonce(20);
+
+const cancelToken = new CancellationToken();
 
 function Shuffler() {
   // State
@@ -60,12 +63,13 @@ function Shuffler() {
     setLoadingText(
       "Shuffling queue. You will hear songs being skipped as it works."
     );
-    await algorithm(accessToken);
+    await algorithm(accessToken, cancelToken);
     setLoadingText("Shuffled 11 songs in your queue.");
     setTimeout(() => {
       setLoadingText("");
     }, shuffledMsgTimeout);
     setIsLoading(false);
+    cancelToken.reset();
   };
 
   // TODO use correct URL for prod
@@ -103,11 +107,22 @@ function Shuffler() {
   let secondaryButton = null;
   if (isLoading) {
     secondaryButton = (
-      <button className="text-red-400 underline pt-8">Abort</button>
+      <button
+        className="text-red-400 underline pt-8 select-none focus:outline-none"
+        onClick={() => {
+          let msg =
+            "Are you sure you would like to stop shuffling your queue? This may leave your queue in an undesirable state.";
+          if (window.confirm(msg)) {
+            console.log("Setting cancelled");
+            cancelToken.cancel();
+          }
+        }}
+      >
+        Stop
+      </button>
     );
   }
 
-  // TODO https://www.davidhu.io/react-spinners/
   return (
     <div className="h-full max-w-md mx-auto flex flex-col justify-center items-center">
       <div className="spacer h-1/6 w-full p-1" />

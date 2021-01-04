@@ -1,7 +1,5 @@
 import SpotifyWebApi from "spotify-web-api-js";
 
-// TODO https://ckeditor.com/blog/Aborting-a-signal-how-to-cancel-an-asynchronous-task-in-JavaScript/
-
 const sentinelTrackUri = "spotify:track:4uLU6hMCjMI75M1A2tKUQC";
 const sameSongTimeout = 500; // ms
 
@@ -16,7 +14,7 @@ function timeout(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function algorithm(accessToken) {
+async function algorithm(accessToken, cancelToken) {
   // TODO make sure all error handling leaves everything in a stable state
   if (accessToken === "") {
     // This is an error and should never occur
@@ -61,6 +59,10 @@ async function algorithm(accessToken) {
   let queuedSongs = [];
   let prevUri = currentSongUri;
   while (true) {
+    if (cancelToken.isCancellationRequested) {
+      console.log("Cancelled");
+      return;
+    }
     // Skip to next song
     try {
       await client.skipToNext();
@@ -139,6 +141,10 @@ async function algorithm(accessToken) {
 
   // Add shuffled songs to queue
   for (let song of queuedSongs) {
+    if (cancelToken.isCancellationRequested) {
+      console.log("Cancelled");
+      return;
+    }
     try {
       await client.queue(song);
     } catch (error) {
