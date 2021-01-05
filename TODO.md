@@ -9,3 +9,4 @@
 
 # Bonus features
 - Gracefully support freemium users
+- Setup CI/CD in Github
