@@ -1,3 +1,5 @@
+// TODO weirdness ensues when trying to do this thing while player is paused.
+
 const sentinelTrackUri = "spotify:track:4uLU6hMCjMI75M1A2tKUQC";
 const sameSongTimeout = 500; // ms
 const outcomes = {
@@ -44,7 +46,7 @@ async function algorithm(client, accessToken, cancelToken) {
   client.setAccessToken(accessToken);
 
   // Get current song and seek position
-  let playerState, currentSongUri, currentSongPosition, currentSongIsPaused;
+  let playerState, currentSongUri, currentSongPosition, currentSongIsPlaying;
   try {
     playerState = await client.getMyCurrentPlaybackState();
     if (playerState.item === undefined) {
@@ -52,7 +54,7 @@ async function algorithm(client, accessToken, cancelToken) {
     }
     currentSongUri = playerState.item.uri;
     currentSongPosition = playerState.progress_ms;
-    currentSongIsPaused = playerState.is_playing;
+    currentSongIsPlaying = playerState.is_playing;
   } catch (error) {
     return handleFatalError(error);
   }
@@ -164,7 +166,7 @@ async function algorithm(client, accessToken, cancelToken) {
   }
 
   // Starting the player if necessary
-  if (!currentSongIsPaused) {
+  if (currentSongIsPlaying) {
     try {
       await client.play();
     } catch (error) {
@@ -175,4 +177,4 @@ async function algorithm(client, accessToken, cancelToken) {
   return { outcome: outcomes.SUCCESS, count: queuedSongs.length };
 }
 
-export { algorithm, shuffleArray, outcomes };
+export { algorithm, shuffleArray, outcomes, sentinelTrackUri };
