@@ -9,6 +9,9 @@ module.exports = {
         header: ["Source Sans Pro", ...defaultTheme.fontFamily.sans],
         body: ["Open Sans", ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        primary: "#1DB954",
+      },
     },
   },
   variants: {

@@ -82,7 +82,7 @@ function Shuffler() {
         if (count === 0) {
           setLoadingText(`No songs in your queue to shuffle.`);
         } else {
-          setLoadingText(`Shuffled ${count} songs in your queue.`);
+          setLoadingText(`Shuffled your queue of ${count} songs.`);
         }
         break;
       }
@@ -104,7 +104,7 @@ function Shuffler() {
   // Build primary button
   const buttonText = accessToken ? "Shuffle Your Queue" : "Login With Spotify";
   const css =
-    "font-body font-semibold w-64 flex flex-row justify-around items-center py-2 bg-green-500 text-white text-xl rounded-full px-4 py-1 select-none focus:outline-none";
+    "font-body font-semibold w-64 flex flex-row justify-around items-center py-2 bg-primary text-white text-xl rounded-full px-4 py-1 select-none focus:outline-none";
   let primaryButton = null;
   if (!accessToken) {
     let loginUrl =

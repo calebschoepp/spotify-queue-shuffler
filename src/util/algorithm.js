@@ -46,6 +46,7 @@ async function algorithm(client, accessToken, cancelToken) {
   client.setAccessToken(accessToken);
 
   // Get current song and seek position
+  // TODO maybe this shouldn't fail if nothing is playing?
   let playerState, currentSongUri, currentSongPosition, currentSongIsPlaying;
   try {
     playerState = await client.getMyCurrentPlaybackState();

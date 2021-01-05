@@ -11,9 +11,6 @@ import Help from "./Help";
 function App() {
   return (
     <div className="absolute bottom-0 top-0 left-0 right-0">
-      <h1 className="absolute top-0 p-2 text-2xl w-full text-center">
-        Spotify Queue Shuffler
-      </h1>
       <Shuffler />
       <BuyMeACoffee />
       <Help />
