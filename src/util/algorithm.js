@@ -170,7 +170,9 @@ async function algorithm(client, accessToken, cancelToken) {
     try {
       await client.play();
     } catch (error) {
-      return handleFatalError(error);
+      // It is possible player state won't reflect that it is paused quickly enough and this will fail
+      // Log the error but don't return, not a huge deal if we don't pause.
+      console.log(error);
     }
   }
 

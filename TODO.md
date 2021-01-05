@@ -6,3 +6,6 @@
 - Help text graphics
 - Publish to netlify
 - Setup google analytics
+
+# Bonus features
+- Gracefully support freemium users
