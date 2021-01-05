@@ -120,7 +120,7 @@ function Shuffler() {
       "&response_type=token";
     primaryButton = (
       <a className={css} href={loginUrl}>
-        <img src="/Spotify.png" className="inline" />
+        <img src="/Spotify.png" alt="" className="inline" />
         {buttonText}
       </a>
     );
