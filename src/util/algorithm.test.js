@@ -118,7 +118,7 @@ test("that algorithm handles an empty queue correctly", async () => {
   expect(outcome).toEqual(outcomes.SUCCESS);
   expect(count).toBe(0);
 
-  expect(pauseMock.mock.calls.length).toEqual(2);
+  expect(pauseMock.mock.calls.length).toEqual(3);
   expect(getMyCurrentPlaybackStateMock.mock.calls.length).toEqual(2);
   expect(queueMock.mock.calls.length).toEqual(2);
   expect(queueMock.mock.calls[0][0]).toEqual(sentinelTrackUri);
@@ -191,7 +191,7 @@ test("that algorithm handles queue of songs correctly", async () => {
   expect(outcome).toEqual(outcomes.SUCCESS);
   expect(count).toBe(3);
 
-  expect(pauseMock.mock.calls.length).toEqual(5);
+  expect(pauseMock.mock.calls.length).toEqual(6);
   expect(getMyCurrentPlaybackStateMock.mock.calls.length).toEqual(5);
   expect(queueMock.mock.calls.length).toEqual(5);
   expect(queueMock.mock.calls[0][0]).toEqual(sentinelTrackUri);
@@ -279,7 +279,7 @@ test("that algorithm handles queue of songs with duplicates correctly", async ()
   expect(outcome).toEqual(outcomes.SUCCESS);
   expect(count).toBe(4);
 
-  expect(pauseMock.mock.calls.length).toEqual(6);
+  expect(pauseMock.mock.calls.length).toEqual(7);
   expect(getMyCurrentPlaybackStateMock.mock.calls.length).toEqual(7);
   expect(queueMock.mock.calls.length).toEqual(6);
   expect(queueMock.mock.calls[0][0]).toEqual(sentinelTrackUri);
@@ -358,7 +358,7 @@ test("that algorithm handles queue of songs with duplicate of current song", asy
   expect(outcome).toEqual(outcomes.SUCCESS);
   expect(count).toBe(1);
 
-  expect(pauseMock.mock.calls.length).toEqual(3);
+  expect(pauseMock.mock.calls.length).toEqual(4);
   expect(getMyCurrentPlaybackStateMock.mock.calls.length).toEqual(4);
   expect(queueMock.mock.calls.length).toEqual(3);
   expect(queueMock.mock.calls[0][0]).toEqual(sentinelTrackUri);

@@ -155,7 +155,13 @@ async function algorithm(client, accessToken, cancelToken) {
     return handleFatalError(error);
   }
 
-  // TODO pause the song
+  // Pause the player
+  try {
+    await client.pause();
+  } catch (error) {
+    // Log the error but don't return, not a huge deal if we don't pause.
+    console.log(error);
+  }
 
   // Add shuffled songs to queue
   for (let song of queuedSongs) {
@@ -172,9 +178,8 @@ async function algorithm(client, accessToken, cancelToken) {
   // Starting the player if necessary
   if (currentSongIsPlaying) {
     try {
-      await client.play(); // TODO it is already auto playing when queuing a song, really should pause if it was paused.... Maybe
+      await client.play();
     } catch (error) {
-      // It is possible player state won't reflect that it is paused quickly enough and this will fail
       // Log the error but don't return, not a huge deal if we don't pause.
       console.log(error);
     }
