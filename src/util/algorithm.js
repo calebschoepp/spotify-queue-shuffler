@@ -62,11 +62,13 @@ async function algorithm(client, accessToken, cancelToken) {
   }
 
   // Pause the player
-  try {
-    await client.pause();
-  } catch (error) {
-    // Log the error but don't return, not a huge deal if we don't pause.
-    console.log(error);
+  if (currentSongIsPlaying) {
+    try {
+      await client.pause();
+    } catch (error) {
+      // Log the error but don't return, not a huge deal if we don't pause.
+      console.log(error);
+    }
   }
 
   // Add sentienl song to the queue
@@ -81,8 +83,7 @@ async function algorithm(client, accessToken, cancelToken) {
   let prevUri = currentSongUri;
   while (true) {
     if (cancelToken.isCancellationRequested) {
-      console.log("Cancelled");
-      return [outcomes.CANCELLED, null];
+      return { outcome: outcomes.CANCELLED, count: null };
     }
     // Skip to next song
     try {
@@ -154,11 +155,12 @@ async function algorithm(client, accessToken, cancelToken) {
     return handleFatalError(error);
   }
 
+  // TODO pause the song
+
   // Add shuffled songs to queue
   for (let song of queuedSongs) {
     if (cancelToken.isCancellationRequested) {
-      console.log("Cancelled");
-      return [outcomes.CANCELLED, null];
+      return { outcome: outcomes.CANCELLED, count: null };
     }
     try {
       await client.queue(song);

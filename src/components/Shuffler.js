@@ -93,6 +93,12 @@ function Shuffler() {
         );
         break;
       }
+      case outcomes.CANCELLED: {
+        setLoadingText(
+          "You cancelled the operation. Songs may be missing from your queue."
+        );
+        break;
+      }
       default: {
         setLoadingText("Something went wrong. Please reload the page.");
       }
@@ -145,7 +151,6 @@ function Shuffler() {
         let msg =
           "Are you sure you would like to stop shuffling your queue? This may leave your queue in an undesirable state.";
         if (window.confirm(msg)) {
-          console.log("Setting cancelled");
           cancelToken.cancel();
         }
       }}
