@@ -60,7 +60,7 @@ function Shuffler() {
   const handleShuffleQueue = async () => {
     // TODO force loading icon to update
     setIsLoading(true);
-    setLoadingText("Shuffling queue. You may hear noises as it works.");
+    setLoadingText("Shuffling queue. You may hear some noises as it works.");
     let { outcome, count } = await algorithm(
       new SpotifyWebApi(),
       accessToken,
