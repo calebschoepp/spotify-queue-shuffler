@@ -82,6 +82,7 @@ function Shuffler() {
         if (count === 0) {
           setLoadingText(`No songs in your queue to shuffle.`);
         } else {
+          // TODO show how long it took to shuffle the queue?
           setLoadingText(`Shuffled your queue of ${count} songs.`);
         }
         break;
@@ -155,7 +156,7 @@ function Shuffler() {
 
   return (
     <div className="max-w-xl w-full h-full sm:h-auto flex flex-col justify-end items-center">
-      <div className="w-full flex-grow TODOSHOULDTHISBEGIVENAHEIGHT?">
+      <div className="w-full flex-grow">
         <LoadingIcon
           isLoading={isLoading}
           isAuthenticated={accessToken !== ""}

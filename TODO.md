@@ -6,6 +6,9 @@
 - Help text graphics
 - Publish to netlify
 - Setup google analytics
+- Button hover
+- Rename loading icon and text
+- Make text card a more fully fledged component
 
 # Bonus features
 - Gracefully support freemium users
