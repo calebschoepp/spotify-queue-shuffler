@@ -1,4 +1,5 @@
 // TODO weirdness ensues when trying to do this thing while player is paused.
+// TODO I really need to dig down into the weird errors the API throws. Perhaps call the device endpoint and pass options to api calls?
 
 const sentinelTrackUri = "spotify:track:4uLU6hMCjMI75M1A2tKUQC";
 const sameSongTimeout = 500; // ms

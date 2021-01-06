@@ -1,22 +1,22 @@
 import { algorithm, outcomes } from "../util/algorithm";
 import { parseHash, parseSearch, randNonce } from "../util/helper";
 import { useCookies } from "react-cookie";
+import BuyMeACoffee from "./BuyMeACoffee";
 import CancellationToken from "../util/CancellationToken";
+import Help from "./Help";
 import LoadingIcon from "./LoadingIcon";
 import LoadingText from "./LoadingText";
 import React, { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 
 const oauthStateCookie = "oauth-state";
-
 const randomState = randNonce(20);
-
 const cancelToken = new CancellationToken();
 
 function Shuffler() {
   // State
   const [isLoading, setIsLoading] = useState(false);
-  const [loadingText, setLoadingText] = useState(""); // TODO better default
+  const [loadingText, setLoadingText] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [cookies, setCookie] = useCookies([oauthStateCookie]);
 
@@ -103,8 +103,9 @@ function Shuffler() {
   // TODO use correct URL for prod
   // Build primary button
   const buttonText = accessToken ? "Shuffle Your Queue" : "Login With Spotify";
-  const css =
-    "font-body font-semibold w-64 flex flex-row justify-around items-center py-2 bg-primary text-white text-xl rounded-full px-4 py-1 select-none focus:outline-none";
+  const primaryCss =
+    "font-body font-semibold w-64 flex flex-row justify-around items-center py-2 bg-spotifygreen text-white text-xl rounded-full px-4 py-1 select-none focus:outline-none " +
+    (isLoading ? "opacity-50" : "shadow-xl");
   let primaryButton = null;
   if (!accessToken) {
     let loginUrl =
@@ -119,53 +120,56 @@ function Shuffler() {
       process.env.REACT_APP_SCOPES +
       "&response_type=token";
     primaryButton = (
-      <a className={css} href={loginUrl}>
+      <a className={primaryCss} href={loginUrl}>
         <img src="/Spotify.png" alt="" className="inline" />
         {buttonText}
       </a>
     );
   } else {
     primaryButton = (
-      <button className={css} onClick={handleShuffleQueue}>
+      <button className={primaryCss} onClick={handleShuffleQueue}>
         {buttonText}
       </button>
     );
   }
 
   // Build secondary button
-  let secondaryButton = null;
-  if (isLoading) {
-    secondaryButton = (
-      <button
-        className="text-red-400 font-body underline pt-8 select-none focus:outline-none"
-        onClick={() => {
-          let msg =
-            "Are you sure you would like to stop shuffling your queue? This may leave your queue in an undesirable state.";
-          if (window.confirm(msg)) {
-            console.log("Setting cancelled");
-            cancelToken.cancel();
-          }
-        }}
-      >
-        Stop
-      </button>
-    );
-  }
+  const secondaryCss =
+    "text-red-400 font-body underline py-8 select-none focus:outline-none " +
+    (isLoading ? "block" : "invisible");
+  let secondaryButton = (
+    <button
+      className={secondaryCss}
+      onClick={() => {
+        let msg =
+          "Are you sure you would like to stop shuffling your queue? This may leave your queue in an undesirable state.";
+        if (window.confirm(msg)) {
+          console.log("Setting cancelled");
+          cancelToken.cancel();
+        }
+      }}
+    >
+      Stop
+    </button>
+  );
 
   return (
-    <div className="h-full max-w-md mx-auto flex flex-col justify-center items-center">
-      <div className="spacer h-1/6 w-full p-1" />
-      <div className="h-1/3 w-full p-1 flex flex-col justify-center items-center">
-        <LoadingIcon isLoading={isLoading} />
+    <div className="max-w-xl w-full h-full sm:h-auto flex flex-col justify-end items-center">
+      <div className="w-full flex-grow TODOSHOULDTHISBEGIVENAHEIGHT?">
+        <LoadingIcon
+          isLoading={isLoading}
+          isAuthenticated={accessToken !== ""}
+        />
       </div>
-      <div className="h-1/6 w-full p-1 flex flex-col justify-center items-center">
-        <LoadingText text={loadingText} />
-      </div>
-      <div className="flex flex-col justify-top items-center h-1/4 w-full p-1">
+      <LoadingText text={loadingText} />
+      <div className="flex flex-col justify-start items-center">
         {primaryButton}
         {secondaryButton}
       </div>
-      <div className="spacer h-1/6 w-full p-1" />
+      <div className="w-full flex flex-row justify-between sm:justify-center items-center">
+        <Help />
+        <BuyMeACoffee />
+      </div>
     </div>
   );
 }
