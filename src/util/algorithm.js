@@ -44,6 +44,7 @@ async function algorithm(client, accessToken, cancelToken) {
   // Setup Spotify client
   client.setAccessToken(accessToken);
 
+  // TODO remove this
   try {
     const devices = await client.getMyDevices();
     console.log(devices.devices);
@@ -66,6 +67,7 @@ async function algorithm(client, accessToken, cancelToken) {
   } catch (error) {
     return handleFatalError(error);
   }
+  // TODO remove this
   console.log(playerState);
 
   // Pause the player
