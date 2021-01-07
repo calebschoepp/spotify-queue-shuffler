@@ -7,8 +7,8 @@ function LoadingIcon(props) {
   if (!isAuthenticated) {
     content = (
       <div className="font-header font-black text-offblack text-3xl text-center max-w-xs">
-        <p>Want to shuffle your Spotify Queue?</p>
-        <p className="mt-8">Login to get started!</p>
+        <h1>Want to shuffle your Spotify Queue?</h1>
+        <h1 className="mt-8">Login to get started!</h1>
       </div>
     );
   } else if (isLoading) {
@@ -20,8 +20,8 @@ function LoadingIcon(props) {
   } else {
     content = (
       <div className="font-header font-black text-offblack text-3xl text-center max-w-xs">
-        <p>Go ahead, click the button.</p>
-        <p className="mt-8">It really is that easy.</p>
+        <h1>Go ahead, click the button.</h1>
+        <h1 className="mt-8">It really is that easy.</h1>
       </div>
     );
   }
