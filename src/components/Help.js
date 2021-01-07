@@ -25,6 +25,8 @@ function Help() {
       <img
         src="/Help.png"
         alt="Help"
+        width="50"
+        height="50"
         className="m-4"
         onClick={() => setShowModal(true)}
       />

@@ -11,3 +11,4 @@
 - Gracefully support freemium users
 - Setup CI/CD in Github
 - Use an unlikely sequence of songs for the sentinel
+- High resolution images. Lowercase names. Lighthouse
