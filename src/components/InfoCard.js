@@ -1,5 +1,8 @@
 import React from "react";
 
+// TODO improve this component to offer a countdown timer that hides the card
+// https://spin.atomicobject.com/2018/11/08/countdown-timer-react-typescript/
+
 function InfoCard(props) {
   let { text } = props;
   return (

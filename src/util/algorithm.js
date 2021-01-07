@@ -1,4 +1,3 @@
-// TODO weirdness ensues when trying to do this thing while player is paused.
 // TODO I really need to dig down into the weird errors the API throws. Perhaps call the device endpoint and pass options to api calls?
 
 const sentinelTrackUri = "spotify:track:4kW2w78NfBjv4jNlhuXvIV";
@@ -37,7 +36,6 @@ function handleFatalError(error) {
 
 async function algorithm(client, accessToken, cancelToken) {
   // Returns [outcome, count]
-  // TODO make sure all error handling leaves everything in a stable state
   if (accessToken === "") {
     // This is an error and should never occur
     return { outcome: outcomes.UNAUTHENTICATED, count: null };
@@ -45,6 +43,14 @@ async function algorithm(client, accessToken, cancelToken) {
 
   // Setup Spotify client
   client.setAccessToken(accessToken);
+
+  try {
+    const devices = await client.getMyDevices();
+    console.log(devices.devices);
+  } catch (error) {
+    console.log("FAILED GETTING DEVICES.");
+    console.log(error);
+  }
 
   // Get current song and seek position
   // TODO maybe this shouldn't fail if nothing is playing?
@@ -60,6 +66,7 @@ async function algorithm(client, accessToken, cancelToken) {
   } catch (error) {
     return handleFatalError(error);
   }
+  console.log(playerState);
 
   // Pause the player
   if (currentSongIsPlaying) {
