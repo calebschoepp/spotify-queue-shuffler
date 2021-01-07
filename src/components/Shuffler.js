@@ -4,8 +4,8 @@ import { useCookies } from "react-cookie";
 import BuyMeACoffee from "./BuyMeACoffee";
 import CancellationToken from "../util/CancellationToken";
 import Help from "./Help";
-import LoadingIcon from "./LoadingIcon";
-import LoadingText from "./LoadingText";
+import Hero from "./Hero";
+import InfoCard from "./InfoCard";
 import React, { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 
@@ -162,12 +162,9 @@ function Shuffler() {
   return (
     <div className="max-w-xl w-full h-full sm:h-auto flex flex-col justify-end items-center">
       <div className="w-full flex-grow">
-        <LoadingIcon
-          isLoading={isLoading}
-          isAuthenticated={accessToken !== ""}
-        />
+        <Hero isLoading={isLoading} isAuthenticated={accessToken !== ""} />
       </div>
-      <LoadingText text={loadingText} />
+      <InfoCard text={loadingText} />
       <div className="flex flex-col justify-start items-center">
         {primaryButton}
         {secondaryButton}

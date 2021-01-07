@@ -1,7 +1,7 @@
 import React from "react";
 import BounceLoader from "react-spinners/BounceLoader";
 
-function LoadingIcon(props) {
+function Hero(props) {
   let { isLoading, isAuthenticated } = props;
   let content;
   if (!isAuthenticated) {
@@ -32,4 +32,4 @@ function LoadingIcon(props) {
   );
 }
 
-export default LoadingIcon;
+export default Hero;

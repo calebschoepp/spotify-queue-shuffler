@@ -1,12 +1,11 @@
 # TODO before release
-- Test components
-- Test shuffle algorithm
-- Button hover
-- Rename loading icon and text
-- Make text card a more fully fledged component
 - Edit prose with Naomi
 - Figure out PWA
 - Figure out weird Spotify API bugs and errors
+- Test components
+- Test shuffle algorithm
+- Button hover
+- Make text card a more fully fledged component
 
 # Bonus features
 - Gracefully support freemium users

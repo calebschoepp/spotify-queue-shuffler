@@ -1,6 +1,6 @@
 import React from "react";
 
-function LoadingText(props) {
+function InfoCard(props) {
   let { text } = props;
   return (
     <div
@@ -14,4 +14,4 @@ function LoadingText(props) {
   );
 }
 
-export default LoadingText;
+export default InfoCard;
