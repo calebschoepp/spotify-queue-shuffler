@@ -58,7 +58,6 @@ function Shuffler() {
   }, [cookies]);
 
   const handleShuffleQueue = async () => {
-    // TODO force loading icon to update
     setIsLoading(true);
     setLoadingText("Shuffling queue. You may hear some noises as it works.");
     let { outcome, count } = await algorithm(
@@ -107,7 +106,6 @@ function Shuffler() {
     cancelToken.reset();
   };
 
-  // TODO use correct URL for prod
   // Build primary button
   const buttonText = accessToken ? "Shuffle Your Queue" : "Login With Spotify";
   const primaryCss =
