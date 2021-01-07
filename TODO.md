@@ -3,9 +3,7 @@
 - Test shuffle algorithm
 - Change sentinel song
 - Desktop styling
-- Help text graphics
-- Publish to netlify
-- Setup google analytics
+- Help button dialog
 - Button hover
 - Rename loading icon and text
 - Make text card a more fully fledged component
