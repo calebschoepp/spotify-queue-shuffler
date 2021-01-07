@@ -294,7 +294,7 @@ test("that algorithm handles queue of songs with duplicates correctly", async ()
   expect(shuffledQueue[0]).toEqual("spotify:track:1IF5UcqRO42D12vYwceOY6");
   expect(shuffledQueue[1]).toEqual("spotify:track:33bURv895AN4FkBvgFo2dx");
   expect(shuffledQueue[2]).toEqual("spotify:track:33bURv895AN4FkBvgFo2dx");
-  expect(shuffledQueue[3]).toEqual("spotify:track:4uLU6hMCjMI75M1A2tKUQC");
+  expect(shuffledQueue[3]).toEqual(sentinelTrackUri);
   expect(shuffledQueue[4]).toEqual("spotify:track:5LABCxgmP7DATATIJXOh6n");
   expect(shuffledQueue[5]).toEqual("spotify:track:5LABCxgmP7DATATIJXOh6n");
 

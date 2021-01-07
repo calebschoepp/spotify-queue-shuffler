@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 
-Modal.setAppElement("#root");
+try {
+  Modal.setAppElement("#root");
+} catch (error) {}
 
 function Help() {
   const [showModal, setShowModal] = useState(false);

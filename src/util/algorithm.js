@@ -1,7 +1,7 @@
 // TODO weirdness ensues when trying to do this thing while player is paused.
 // TODO I really need to dig down into the weird errors the API throws. Perhaps call the device endpoint and pass options to api calls?
 
-const sentinelTrackUri = "spotify:track:4uLU6hMCjMI75M1A2tKUQC";
+const sentinelTrackUri = "spotify:track:4kW2w78NfBjv4jNlhuXvIV";
 const sameSongTimeout = 500; // ms
 const outcomes = {
   SUCCESS: "success",
@@ -72,6 +72,9 @@ async function algorithm(client, accessToken, cancelToken) {
   }
 
   // Add sentienl song to the queue
+  // There ~1000 people who listen to this and would have troubles with it serving as a sentinel.
+  // To mitigate this I could make an unlikely sequence of songs serve as the sentinel.
+  // At this point it probably is not worth the effort.
   try {
     await client.queue(sentinelTrackUri);
   } catch (error) {
