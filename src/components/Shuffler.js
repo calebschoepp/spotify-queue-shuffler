@@ -58,6 +58,11 @@ function Shuffler() {
   }, [cookies]);
 
   const handleShuffleQueue = async () => {
+    // Make sure there is an internet connection
+    if (!navigator.onLine) {
+      setLoadingText("An internet connection is required. Try again later.");
+      return;
+    }
     setIsLoading(true);
     setLoadingText("Shuffling queue. You may hear some noises as it works.");
     let { outcome, count } = await algorithm(
