@@ -8,6 +8,7 @@ const outcomes = {
   ERROR: "error",
   CANCELLED: "cancelled",
   NOTHING_PLAYING: "nothing_playing",
+  NOT_PREMIUM: "not_premium",
 };
 
 function shuffleArray(array) {
@@ -27,6 +28,11 @@ function handleFatalError(error) {
     console.log(error);
     if (error.status === 401) {
       return { outcome: outcomes.UNAUTHENTICATED, count: null };
+    } else if (
+      error.status === 403 &&
+      RegExp("PREMIUM_REQUIRED").test(error.response)
+    ) {
+      return { outcome: outcomes.NOT_PREMIUM, count: null };
     }
   } catch (error) {
     console.log("Failed to parse error object");

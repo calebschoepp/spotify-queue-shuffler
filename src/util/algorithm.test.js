@@ -379,3 +379,4 @@ test("that algorithm handles queue of songs with duplicate of current song", asy
 // Random failures
 // Pause failures
 // Paused when shuffling vs playing when shuffling
+// Freemium user

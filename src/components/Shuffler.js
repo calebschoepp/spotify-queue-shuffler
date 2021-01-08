@@ -105,6 +105,12 @@ function Shuffler() {
         );
         break;
       }
+      case outcomes.NOT_PREMIUM: {
+        setLoadingText(
+          "You must have a premium Spotify account for this to work."
+        );
+        break;
+      }
       default: {
         setLoadingText("Something went wrong. Please reload the page.");
       }
