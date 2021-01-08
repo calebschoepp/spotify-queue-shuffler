@@ -43,30 +43,28 @@ function Help() {
           <img src="Close.svg" alt="X" />
         </button>
         <h2 className="font-header font-bold text-xl">
-          Doesn't Spotify already shuffle?
+          Doesn't Spotify already shuffle songs?
         </h2>
         <p className="font-body text-offblack">
-          Yes it does, but only for things like playlists or albums. This is
-          useful when you want to listen to the songs you have queued up in a
-          different order.
+          Yes it does, but only for playlists or albums. This app is useful when
+          you want to shuffle the songs you have lined up in your queue.
         </p>
 
         <h2 className="font-header font-bold text-xl mt-2">
           How does this work?
         </h2>
         <p className="font-body text-offblack">
-          This works by skipping through and recording all of the songs in your
-          queue and then subsequently re-adding them to the queue in a shuffled
-          order.
+          First, the app removes all of the songs from your queue. Then it
+          shuffles them and adds them back. This is all done very quickly but
+          you'll often hear bits of songs playing as the app works.
         </p>
 
         <h2 className="font-header font-bold text-xl mt-2">
-          Must I login with Spotify?
+          Do I need to login with Spotify?
         </h2>
         <p className="font-body text-offblack">
-          Yes, without doing so your queue cannot be shuffled. However, only the
-          required permissions are requested and no private information is
-          accessed.
+          Yes. However, only the required permissions are requested and no
+          private information is accessed.
         </p>
 
         <h2 className="font-header font-bold text-xl mt-2">

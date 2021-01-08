@@ -21,7 +21,6 @@ function Hero(props) {
     content = (
       <div className="font-header font-black text-offblack text-3xl text-center max-w-xs">
         <h1>Go ahead, click the button.</h1>
-        <h1 className="mt-8">It really is that easy.</h1>
       </div>
     );
   }

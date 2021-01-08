@@ -12,3 +12,4 @@
 - Use an unlikely sequence of songs for the sentinel
 - High resolution images. Lowercase names. Lighthouse
 - Make text card a more fully fledged component
+- Continually ask to install the PWA

@@ -64,7 +64,7 @@ function Shuffler() {
       return;
     }
     setIsLoading(true);
-    setLoadingText("Shuffling queue. You may hear some noises as it works.");
+    setLoadingText("Shuffling queue. Your music will be briefly interrupted.");
     let { outcome, count } = await algorithm(
       new SpotifyWebApi(),
       accessToken,
