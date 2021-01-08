@@ -11,7 +11,7 @@ module.exports = {
         body: ["Open Sans", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        spotifygreen: "#FFB954",
+        spotifygreen: "#1DB954",
         offblack: "#222222",
         warmgray: colors.warmGray,
       },
