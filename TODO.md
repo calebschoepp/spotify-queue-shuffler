@@ -1,5 +1,4 @@
 # TODO before release
-- Edit prose with Naomi
 - Figure out PWA
 - Figure out weird Spotify API bugs and errors
 - Test components

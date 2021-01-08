@@ -99,7 +99,7 @@ function Shuffler() {
       }
       case outcomes.CANCELLED: {
         setLoadingText(
-          "You cancelled the operation. Songs may be missing from your queue."
+          "Because you cancelled songs may be missing from your queue."
         );
         break;
       }
@@ -158,7 +158,7 @@ function Shuffler() {
       className={secondaryCss}
       onClick={() => {
         let msg =
-          "Are you sure you would like to stop shuffling your queue? This may leave your queue in an undesirable state.";
+          "Are you sure you would like to stop shuffling? Songs may disappear from your queue.";
         if (window.confirm(msg)) {
           cancelToken.cancel();
         }
