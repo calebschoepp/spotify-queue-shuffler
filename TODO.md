@@ -1,6 +1,6 @@
 # TODO before release
 - Figure out weird Spotify API bugs and errors
-- Test shuffle algorithm
+- Test shuffle algorithm errors
 - Add a support email?
 - Fix exit on QnA
 

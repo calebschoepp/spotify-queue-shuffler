@@ -17,6 +17,8 @@ function Help() {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       maxWidth: "640px",
+      maxHeight: "100vh",
+      overflowY: "auto",
     },
   };
 
@@ -90,6 +92,14 @@ function Help() {
           >
             Caleb Schoepp
           </a>
+          . If you need any support, shoot me an{" "}
+          <a
+            className="text-spotifygreen underline"
+            href="mailto:caleb.schoepp@gmail.com"
+          >
+            email
+          </a>
+          .
         </p>
       </Modal>
     </>

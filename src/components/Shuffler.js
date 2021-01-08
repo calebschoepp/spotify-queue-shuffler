@@ -9,6 +9,8 @@ import InfoCard from "./InfoCard";
 import React, { useEffect, useState } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 
+// TODO refactor this into multiple components/functions to be more testable
+
 const oauthStateCookie = "oauth-state";
 const randomState = randNonce(20);
 const cancelToken = new CancellationToken();
