@@ -45,13 +45,13 @@ async function algorithm(client, accessToken, cancelToken) {
   client.setAccessToken(accessToken);
 
   // TODO remove this
-  try {
-    const devices = await client.getMyDevices();
-    console.log(devices.devices);
-  } catch (error) {
-    console.log("FAILED GETTING DEVICES.");
-    console.log(error);
-  }
+  // try {
+  //   const devices = await client.getMyDevices();
+  //   console.log(devices.devices);
+  // } catch (error) {
+  //   console.log("FAILED GETTING DEVICES.");
+  //   console.log(error);
+  // }
 
   // Get current song and seek position
   // TODO maybe this shouldn't fail if nothing is playing?
@@ -68,7 +68,7 @@ async function algorithm(client, accessToken, cancelToken) {
     return handleFatalError(error);
   }
   // TODO remove this
-  console.log(playerState);
+  // console.log(playerState);
 
   // Pause the player
   if (currentSongIsPlaying) {

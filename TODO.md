@@ -1,9 +1,8 @@
 # TODO before release
-- Figure out PWA
 - Figure out weird Spotify API bugs and errors
-- Test components
 - Test shuffle algorithm
-- Button hover
+- Add a support email?
+- Fix exit on QnA
 
 # Bonus features
 - Gracefully support freemium users
@@ -12,3 +11,5 @@
 - High resolution images. Lowercase names. Lighthouse
 - Make text card a more fully fledged component
 - Continually ask to install the PWA
+- Button hover and shadows for help and coffee buttons
+- Write solid tests for Shuffler component
