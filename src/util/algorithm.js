@@ -119,8 +119,10 @@ async function algorithm(client, accessToken, cancelToken) {
     }
 
     // Grab next song
+    let nextSongUri = "";
     try {
       playerState = await client.getMyCurrentPlaybackState();
+      nextSongUri = playerState.item.uri;
     } catch (error) {
       return handleFatalError(error);
     }
@@ -133,19 +135,20 @@ async function algorithm(client, accessToken, cancelToken) {
       await timeout(sameSongTimeout);
       try {
         playerState = await client.getMyCurrentPlaybackState();
+        nextSongUri = playerState.item.uri;
       } catch (error) {
         return handleFatalError(error);
       }
     }
 
     // Check if the sentinel song was found
-    if (playerState.item.uri === sentinelTrackUri) {
+    if (nextSongUri === sentinelTrackUri) {
       break;
     }
 
     // Add the song id to a list that will be shuffled
-    queuedSongs.push(playerState.item.uri);
-    prevUri = playerState.item.uri;
+    queuedSongs.push(nextSongUri);
+    prevUri = nextSongUri;
   }
 
   // Shuffle queued songs
