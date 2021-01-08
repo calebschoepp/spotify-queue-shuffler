@@ -7,13 +7,13 @@ function Hero(props) {
   if (!isAuthenticated) {
     content = (
       <div className="font-header font-black text-offblack text-3xl text-center max-w-xs">
-        <h1>Want to shuffle your Spotify Queue?</h1>
+        <h1>Want to shuffle your Spotify queue?</h1>
         <h1 className="mt-8">Login to get started!</h1>
       </div>
     );
   } else if (isLoading) {
     content = (
-      <div style={{ width: "180px", height: "180px" }}>
+      <div className="loader" style={{ width: "180px", height: "180px" }}>
         <BounceLoader color={"#1DB954"} loading={isLoading} size={180} />
       </div>
     );

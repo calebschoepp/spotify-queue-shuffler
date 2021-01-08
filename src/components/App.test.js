@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import App from "./App";
 
 it("renders without crashing", () => {
@@ -10,6 +10,4 @@ it("renders without crashing", () => {
 
 it("renders title", () => {
   render(<App />);
-  // const title = screen.getByText(/Spotify Queue Shuffler/i);
-  // expect(title).toBeInTheDocument(); TODO fix test
 });
